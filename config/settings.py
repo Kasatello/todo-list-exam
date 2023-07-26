@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,6 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "debug_toolbar",
+    "crispy_forms",
 
     "task",
 ]
@@ -57,6 +59,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = "config.wsgi.application"
 
@@ -94,7 +98,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = "static/"
-
+STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
