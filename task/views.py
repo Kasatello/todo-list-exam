@@ -11,7 +11,6 @@ def index(request: HttpRequest) -> HttpResponse:
     tasks = Task.objects.all()
     tags = Tag.objects.all()
 
-
     if request.method == 'POST':
         task_id = request.POST.get('task_id')
         try:
