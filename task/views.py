@@ -13,13 +13,10 @@ def index(request: HttpRequest) -> HttpResponse:
 
     if request.method == 'POST':
         task_id = request.POST.get('task_id')
-        try:
-            task = Task.objects.get(pk=task_id)
-            task.is_done = not task.is_done
-            task.save()
-            return HttpResponseRedirect(request.path_info)
-        except Task.DoesNotExist:
-            pass
+        task = Task.objects.get(pk=task_id)
+        task.is_done = not task.is_done
+        task.save()
+        return HttpResponseRedirect(request.path_info)
     return render(request, "task/index.html", {"tasks": tasks, "tags": tags})
 
 
