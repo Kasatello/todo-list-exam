@@ -11,8 +11,8 @@ def index(request: HttpRequest) -> HttpResponse:
     tasks = Task.objects.all()
     tags = Tag.objects.all()
 
-    if request.method == 'POST':
-        task_id = request.POST.get('task_id')
+    if request.method == "POST":
+        task_id = request.POST.get("task_id")
         task = Task.objects.get(pk=task_id)
         task.is_done = not task.is_done
         task.save()
