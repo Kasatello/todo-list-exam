@@ -1,4 +1,4 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
@@ -11,12 +11,16 @@ def index(request: HttpRequest) -> HttpResponse:
     tasks = Task.objects.all()
     tags = Tag.objects.all()
 
-    if request.method == "POST":
-        task_id = request.POST.get('task_id')
-        task = get_object_or_404(Task, pk=task_id)
-        task.is_done = not task.is_done
-        task.save()
 
+    if request.method == 'POST':
+        task_id = request.POST.get('task_id')
+        try:
+            task = Task.objects.get(pk=task_id)
+            task.is_done = not task.is_done
+            task.save()
+            return HttpResponseRedirect(request.path_info)
+        except Task.DoesNotExist:
+            pass
     return render(request, "task/index.html", {"tasks": tasks, "tags": tags})
 
 
